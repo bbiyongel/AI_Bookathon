@@ -14,8 +14,9 @@ driver = webdriver.Chrome()
 driver.get(URL)
 
 # page가 309까지 있으므로 1~309까지 돌기
-PAGE_NUM = 309
-for i in range(1, PAGE_NUM+1):
+PAGE_start = 26
+PAGE_end = 50
+for i in range(PAGE_start, PAGE_end+1):
 
     # page별로 창 이동
     page_uri = URL + '/page/{}'.format(i)
