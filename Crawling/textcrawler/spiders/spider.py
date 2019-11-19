@@ -5,36 +5,46 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 class Spider(scrapy.Spider):
-  name = "textCrawler"
-  start_urls = ['https://teen.munjang.or.kr/archives/category/write/life']
-  n = 1
+    name = "textCrawler"
 
-  def parse(self, response):
-    n = 1
-    url = self.start_urls[0]
-    yield scrapy.Request(url, callback=self.parse_page)
-    for n in range(2, 310):
-      url = self.start_urls[0] + '/page/' +str(n)
-      yield scrapy.Request(url, callback=self.parse_page)
+    def __init__(self):
+        self.NUM_PAGE = 470
+        self.start_urls = ['https://teen.munjang.or.kr/archives/category/write/story']
 
-  def parse_page(self, response):
-    for post in response.css('[class=post_title] a::attr(href)').extract():
-      yield scrapy.Request(post, callback=self.parse_text)
+    def parse(self, response):
+        url = self.start_urls[0]
+        yield scrapy.Request(url, callback=self.parse_page)
+        for n in range(1, self.NUM_PAGE+1):
+            url = self.start_urls[0] + '/page/' + str(n)
+            yield scrapy.Request(url, callback=self.parse_page)
 
-  def parse_text(self, post):
-    title = post.css('.entry-title::text').extract()
-    if ("장원" or "공지") in title[0]:
-      return
+    def parse_page(self, response):
+        for post in response.css('[class=post_title] a::attr(href)').extract():
+            yield scrapy.Request(post, callback=self.parse_text)
 
-    item = post.css('[class=entry-content] p').re('(\w+)')
-    string = " ".join(item)
+    def parse_text(self, post):
+        dic = {}
 
-    self.n+=1
-    dic['title'] = title[0]
-    dic['content'] = string
+        url = post.request.url.split('/')[-1]
+        dic['#'] = url
 
-    print(post)
-    print(title)
-    print(string)
+        title = post.css('.entry-title::text').extract()
+        dic['title'] = title[0]
 
-    yield dic
+        tokens = ['장원', '공지', '생활글', '월장원', '주장원', '이야기글', '알려드립니다', '필독', '[공지]', '작품', '글틴', '읽어보세요']
+        for token in tokens:
+            if token in title[0].split():
+                return
+
+        content = post.xpath('//*[@id="post-{}"]/div[1]/p//text()'.format(url)).re('(\w+)')
+        if not content:
+            content = post.xpath('//*[@id="post-{}"]//div//text()'.format(url)).re('(\w+)')
+
+        content = " ".join(content)
+        dic['content'] = content
+
+        print(post)
+        print(title)
+        print(content)
+
+        yield dic
