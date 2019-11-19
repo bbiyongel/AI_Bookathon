@@ -2,7 +2,7 @@
 *.ipynb
 .DS_Store
 *.csv
-*.txt
+data.txt
 *.png
 model-7760000*
 *.pyc
