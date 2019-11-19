@@ -5,4 +5,8 @@ data/
 *.csv
 *.txt
 *.png
+<<<<<<< HEAD
 model-7760000*
+=======
+*.pyc
+>>>>>>> 9493c10fa0e9174c5a1ac6ea3bdc3db9ca96e90b
