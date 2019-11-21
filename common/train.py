@@ -242,6 +242,9 @@ def main():
                     (opt_apply, loss, summaries),
                     feed_dict={context: sample_batch()})
 
+                with open(os.path.join(CHECKPOINT_DIR, args.run_name, 'loss'), 'a') as f:
+                    f.write("{},".format(v_loss))
+
                 summary_log.add_summary(v_summary, counter)
 
                 avg_loss = (avg_loss[0] * 0.99 + v_loss,
