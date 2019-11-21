@@ -2,12 +2,9 @@
 __pycache__/
 no_use_notebooks/
 .DS_Store
-*.csv
-text_data/
-=======
+storyCrawl.csv
 *.ipynb
 .DS_Store
-*.csv
 data.txt
 *.png
 model-7760000*
