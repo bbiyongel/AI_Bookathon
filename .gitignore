@@ -2,8 +2,6 @@
 __pycache__/
 no_use_notebooks/
 .DS_Store
-*.ipynb
-.DS_Store
 data.txt
 *.png
 model-7760000*

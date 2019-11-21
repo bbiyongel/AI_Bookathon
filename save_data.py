@@ -6,10 +6,17 @@ from glob import glob
 
 
 def PreProcess(text):
-    text = re.sub(pattern='Posted on [0-9]{4} [0-9]{2} [0-9]{2} .+ Posted in \S+ \s?', repl='', string=text)
+    text = re.sub(pattern='Posted on [0-9]{4} [0-9]{2} [0-9]{2} .+ Posted in \S+ \s?', \
+                  repl='', string=text)
+    text = re.sub(pattern='Posted on [0-9]{8} .+ Posted in \S+ \s?', \
+                  repl='', string=text)
+    text = re.sub(pattern='[0-9]{4}년 [0-9]{,2}월 [0-9]{,2}일 [0-9]{,2}시 [0-9]{,2}분 [0-9]{,2}초', \
+                  repl='', string=text)
+    text = re.sub(pattern='[0-9]{4}. [0-9]{,2}. [0-9]{,2}', \
+                  repl='', string=text)
     _filter = re.compile('[ㄱ-ㅣ]+')
     text = _filter.sub('', text)
-    _filter = re.compile('[^가-힣 0-9 a-z A-Z]+')
+    _filter = re.compile('[^가-힣 0-9 a-z A-Z \. \, \' \" \? \!]+')
     text = _filter.sub('', text)
     return text
 
@@ -34,8 +41,10 @@ def save_data(dir_path, save_path):
 
         elif (suffix == 'txt') and (not file.split("/")[-1].startswith("data")):
             print('{} data saving.'.format(file.split('/')[-1]))
-            with open(file, 'r') as f:
-                data += f.read()
+            with open(file, 'r', encoding='utf-8') as f:
+                text = f.read()
+                text = PreProcess(text)
+                data += text
 
     with open(save_path, 'w') as f:
         f.write(data)
