@@ -8,3 +8,5 @@ data.txt
 *.png
 model-7760000*
 *.pyc
+crawled_data.hdf5
+checkpoint/
