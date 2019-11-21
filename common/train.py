@@ -148,6 +148,12 @@ def main():
                 # Get fresh GPT weights if new run.
                 ckpt = tf.train.latest_checkpoint(
                     os.path.join('models', args.model_name))
+            counter_path = os.path.join(CHECKPOINT_DIR, args.run_name, 'counter')
+                    if os.path.exists(counter_path):
+                        # Load the step number if we're resuming a run
+                        # Add 1 so we don't immediately try to save again
+                        with open(counter_path, 'r') as fp:
+                            counter = int(fp.read()) + 1
         elif args.restore_from == 'fresh':
             ckpt = tf.train.latest_checkpoint(
                 os.path.join('models', args.model_name))
@@ -164,6 +170,7 @@ def main():
         print('Loading dataset...')
 
         f_path = args.dataset
+        print('Using dataset', f_path)
         fi = h5py.File(f_path, 'r')
         data_sampler = load_dataset.Sampler_crawled_data(fi['data'])
 

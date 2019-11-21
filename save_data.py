@@ -43,8 +43,8 @@ def save_data(dir_path, save_path):
     print("\nAll saved.".format(dir_path.split('/')[-1]))
 
 
-data_dir = './Crawling/textcrawler/text_data/'
-save_path = './Crawling/textcrawler/text_data/data.txt'
+data_dir = './Crawling/textcrawler/use_data/'
+save_path = './Crawling/textcrawler/use_data/data.txt'
 
 if __name__ == "__main__":
     save_data(data_dir, save_path)

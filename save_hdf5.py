@@ -6,7 +6,7 @@ vocab_path = "./common/models/345K/vocab.txt"
 vocab = load_vocab(vocab_path)
 
 # get text data file
-file_path = './Crawling/textcrawler/text_data/data.txt'
+file_path = './Crawling/textcrawler/use_data/data.txt'
 with open(file_path, 'r') as f:
     data = f.read()
 
