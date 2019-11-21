@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 #-*- coding:utf-8 -*-
 
 import re
+=======
+import re, os
+>>>>>>> ef5460f8f5036996154dc7cfd7825b7ae9fa0b3b
 import pandas as pd
 from glob import glob
 
@@ -23,7 +27,7 @@ def save_data(dir_path, save_path):
         suffix = file.split("/")[-1].split(".")[-1]
 
         if suffix == 'csv':
-            df = pd.DataFrame.from_csv(file).reset_index()
+            df = pd.read_csv(file).reset_index()
             print('{} data saving. size:'.format(file.split('/')[-1]), df.shape[0])
 
             for i, text in enumerate(df['content'].values):
@@ -41,3 +45,10 @@ def save_data(dir_path, save_path):
         f.write(data)
 
     print("\nAll saved.".format(dir_path.split('/')[-1]))
+
+
+data_dir = './Crawling/textcrawler/text_data/'
+save_path = './Crawling/textcrawler/text_data/data.txt'
+
+if __name__ == "__main__":
+    save_data(data_dir, save_path)
