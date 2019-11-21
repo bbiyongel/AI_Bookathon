@@ -231,12 +231,13 @@ def main():
                 if counter % args.sample_every == 0:
                     generate_samples()
                 if counter % 2000 == 0:
-                    decay /= 2
+                    decay = learning_rate / 2
                     if decay < 0.00002:
                         continue
                     else:
-                        learning_rate = decay
-                        
+                        args.learning_rate = decay
+                    print("learning rate decayed: {}".format(args.learning_rate))
+
                 (_, v_loss, v_summary) = sess.run(
                     (opt_apply, loss, summaries),
                     feed_dict={context: sample_batch()})
