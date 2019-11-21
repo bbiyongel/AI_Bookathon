@@ -208,7 +208,7 @@ def main():
             maketree(os.path.join(SAMPLE_DIR, args.run_name))
             with open(
                     os.path.join(SAMPLE_DIR, args.run_name,
-                                 'samples-{}').format(counter), 'w') as fp:
+                                 "samples-%06d" % counter), 'w') as fp:
                 fp.write('\n'.join(all_text))
 
         def sample_batch():
