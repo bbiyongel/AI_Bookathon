@@ -148,7 +148,7 @@ def main():
                 # Get fresh GPT weights if new run.
                 ckpt = tf.train.latest_checkpoint(
                     os.path.join('models', args.model_name))
-            counter_path = os.path.join(CHECKPOINT_DIR, args.run_name, 'counter')
+                counter_path = os.path.join(CHECKPOINT_DIR, args.run_name, 'counter')
                     if os.path.exists(counter_path):
                         # Load the step number if we're resuming a run
                         # Add 1 so we don't immediately try to save again
