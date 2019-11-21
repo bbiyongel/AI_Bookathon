@@ -1,8 +1,14 @@
 .ipynb_checkpoints/
+__pycache__/
 no_use_notebooks/
 .DS_Store
 *.csv
 text_data/
+=======
+*.ipynb
+.DS_Store
+*.csv
+data.txt
 *.png
 model-7760000*
 *.pyc
