@@ -19,7 +19,7 @@ parser.add_argument('--dataset', metavar='PATH', type=str, required=True,
                     help='Input file, directory, or glob pattern (utf-8 text, or preencoded .npz files).')
 parser.add_argument('--model_name', metavar='MODEL', type=str, default='345K',
                     help='Pretrained model name')
-parser.add_argument('--batch_size', metavar='SIZE', type=int, default=1,
+parser.add_argument('--batch_size', metavar='SIZE', type=int, default=6,
                     help='Batch size')
 parser.add_argument('--learning_rate', metavar='LR', type=float, default=0.0001,
                     help='Learning rate for Adam')
@@ -27,21 +27,21 @@ parser.add_argument('--only_train_transformer_layers', default=False, action='st
                     help='Restrict training to the transformer blocks.')
 parser.add_argument('--optimizer', type=str, default='adam',
                     help='Optimizer. <adam|sgd>.')
-parser.add_argument('--noise', type=float, default=0.0,
+parser.add_argument('--noise', type=float, default=0.01,
                     help='Add noise to input training data to regularize against typos.')
 parser.add_argument('--top_k', type=int, default=40,
                     help='K for top-k sampling.')
-parser.add_argument('--top_p', type=float, default=0.0,
+parser.add_argument('--top_p', type=float, default=0.9,
                     help='P for top-p sampling. Overrides top_k if set > 0.')
 parser.add_argument('--restore_from', type=str, default='pretrained',
                     help='Either "pretrained", "latest", "fresh", or a path to a checkpoint file')
-parser.add_argument('--run_name', type=str, default='run1',
+parser.add_argument('--run_name', type=str, default='test',
                     help='Run id. Name of subdirectory in checkpoint/ and samples/')
 parser.add_argument('--sample_every', metavar='N', type=int, default=100,
                     help='Generate samples every N steps')
-parser.add_argument('--sample_length', metavar='TOKENS', type=int, default=1023,
+parser.add_argument('--sample_length', metavar='TOKENS', type=int, default=512,
                     help='Sample this many tokens')
-parser.add_argument('--sample_num', metavar='N', type=int, default=1,
+parser.add_argument('--sample_num', metavar='N', type=int, default=5,
                     help='Generate this many samples')
 parser.add_argument('--save_every', metavar='N', type=int, default=1000,
                     help='Write a checkpoint every N steps')
@@ -51,7 +51,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 CHECKPOINT_DIR = 'checkpoint'
 SAMPLE_DIR = 'samples'
 
-vocab_path = os.curdir+'/models/345K/vocab.txt'
+vocab_path = os.curdir + '/models/345K/vocab.txt'
 tokenizer = tokenization.FullTokenizer(vocab_file=vocab_path, do_lower_case=False)
 
 
@@ -62,6 +62,7 @@ def maketree(path):
         pass
 
 
+# p의 확률로 랜덤 마스킹 생성
 def randomize(context, hparams, p):
     if p > 0:
         mask = tf.random.uniform(shape=tf.shape(context)) < p
@@ -73,8 +74,10 @@ def randomize(context, hparams, p):
 
 def main():
     args = parser.parse_args()
-    hparams = model.default_hparams()
+    hparams = model.default_hparams() # model = model.py
 
+    # hyperparameter 가져와서 hparams에 덮어쓰기
+    # 수정하고 싶은 param 있으면 'hparams.json' 수정하면 됨
     with open(os.path.join('models', args.model_name, 'hparams.json')) as f:
         hparams.override_from_dict(json.load(f))
 
@@ -160,7 +163,7 @@ def main():
 
         f_path = args.dataset
         fi = h5py.File(f_path, 'r')
-        data_sampler = load_dataset.Sampler_hdf5_news_cut(fi['category'])
+        data_sampler = load_dataset.Sampler_crawled_data(fi['data'])
 
         print('Training...')
 
@@ -196,8 +199,7 @@ def main():
                     feed_dict={context: args.batch_size * [context_tokens]})
                 for i in range(min(args.sample_num - index, args.batch_size)):
                     text = tokenizer.convert_ids_to_tokens(out[i])
-                    text = '======== SAMPLE {} ========\n{}\n'.format(
-                        index + 1, text)
+                    text = '======== SAMPLE {} ========\n{}\n'.format(index+1, text)
                     all_text.append(text)
                     index += 1
             print(text)
