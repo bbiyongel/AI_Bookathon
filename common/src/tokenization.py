@@ -24,6 +24,7 @@ import six
 import tensorflow as tf
 
 
+# text를 unicode로 변환 - 한글은 그대로 출력
 def convert_to_unicode(text):
   """Converts `text` to Unicode (if it's not already), assuming utf-8 input."""
   if six.PY3:
@@ -43,7 +44,8 @@ def convert_to_unicode(text):
   else:
     raise ValueError("Not running on Python2 or Python 3?")
 
-
+# tf.logging을 할 수 있는 형태로 출력
+# 한글은 그대로 출력
 def printable_text(text):
   """Returns text encoded in a way suitable for print or `tf.logging`."""
 
@@ -67,6 +69,7 @@ def printable_text(text):
     raise ValueError("Not running on Python2 or Python 3?")
 
 
+# vocab dictionary return 해줌 - 모든 토큰 포함
 def load_vocab(vocab_file):
   """Loads a vocabulary file into a dictionary."""
   vocab = collections.OrderedDict()
@@ -82,6 +85,7 @@ def load_vocab(vocab_file):
   return vocab
 
 
+# vocab: 단어 딕셔너리 / item: 토큰 단어
 def convert_by_vocab(vocab, items):
   """Converts a sequence of [tokens|ids] using the vocab."""
   output = []
@@ -98,6 +102,7 @@ def convert_ids_to_tokens(inv_vocab, ids):
   return convert_by_vocab(inv_vocab, ids)
 
 
+# 모든 문장을 list로 쪼갬
 def whitespace_tokenize(text):
   """Runs basic whitespace cleaning and splitting on a piece of text."""
   text = text.strip()
