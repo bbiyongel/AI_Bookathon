@@ -2,7 +2,7 @@
 no_use_notebooks/
 .DS_Store
 *.csv
-data.txt
+text_data/
 *.png
 model-7760000*
 *.pyc
