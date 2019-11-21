@@ -8,3 +8,5 @@ model-7760000*
 *.pyc
 crawled_data_*.hdf5
 checkpoint/
+text_data_1/
+text_data_2/
