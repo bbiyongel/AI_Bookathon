@@ -231,7 +231,7 @@ def main():
                 if counter % args.sample_every == 0:
                     generate_samples()
                 if counter % 2000 == 0:
-                    decay = learning_rate / 2
+                    decay = args.learning_rate / 2
                     if decay < 0.00002:
                         continue
                     else:
