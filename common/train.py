@@ -149,11 +149,11 @@ def main():
                 ckpt = tf.train.latest_checkpoint(
                     os.path.join('models', args.model_name))
                 counter_path = os.path.join(CHECKPOINT_DIR, args.run_name, 'counter')
-                    if os.path.exists(counter_path):
-                        # Load the step number if we're resuming a run
-                        # Add 1 so we don't immediately try to save again
-                        with open(counter_path, 'r') as fp:
-                            counter = int(fp.read()) + 1
+                if os.path.exists(counter_path):
+                    # Load the step number if we're resuming a run
+                    # Add 1 so we don't immediately try to save again
+                    with open(counter_path, 'r') as fp:
+                        counter = int(fp.read()) + 1
         elif args.restore_from == 'fresh':
             ckpt = tf.train.latest_checkpoint(
                 os.path.join('models', args.model_name))
