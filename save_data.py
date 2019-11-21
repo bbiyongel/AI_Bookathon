@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 #-*- coding:utf-8 -*-
 
-import re
-=======
 import re, os
->>>>>>> ef5460f8f5036996154dc7cfd7825b7ae9fa0b3b
 import pandas as pd
 from glob import glob
 
