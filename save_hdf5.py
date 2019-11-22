@@ -18,7 +18,7 @@ data_token_ids = tokenizer.convert_tokens_to_ids(tokens)
 print("Done.")
 
 # save as hdf5 file
-save_path = './common/data/crawled_data_4.hdf5'
+save_path = './common/data/crawled_data_5.hdf5'
 f = h5py.File(save_path, 'w')
 g = f.create_group("data")
 g.create_dataset("crawled_geulteen", data=data_token_ids)
