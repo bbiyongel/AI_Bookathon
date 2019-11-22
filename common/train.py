@@ -233,7 +233,7 @@ def main():
                 if counter % 2000 == 0:
                     decay = args.learning_rate / 2
                     if decay < 0.00002:
-                        continue
+                        args.learning_rate = 0.00002
                     else:
                         args.learning_rate = decay
                     print("learning rate decayed: {}".format(args.learning_rate))
