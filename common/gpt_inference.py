@@ -152,7 +152,7 @@ if __name__ == '__main__':
     parser.add_argument('--model_name', type=str, default='345K',
                         help='model (architecture) name')
     parser.add_argument("--device", type=int, default=1)
-    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--nsamples", type=int, default=2)
     parser.add_argument("--batch_size", type=int, default=1)
     parser.add_argument("--tok_length", type=int, default=128)
