@@ -21,7 +21,7 @@ from __future__ import print_function
 import collections
 import unicodedata
 import six
-import tensorflow as tf
+# import tensorflow as tf
 
 
 # text를 unicode로 변환 - 한글은 그대로 출력
@@ -74,8 +74,8 @@ def load_vocab(vocab_file):
   """Loads a vocabulary file into a dictionary."""
   vocab = collections.OrderedDict()
   index = 0
-  with tf.gfile.GFile(vocab_file, "r") as reader:
-  # with open(vocab_file, "r") as reader:
+  # with tf.gfile.GFile(vocab_file, "r") as reader:
+  with open(vocab_file, "r") as reader:
     while True:
       token = convert_to_unicode(reader.readline())
       if not token:
