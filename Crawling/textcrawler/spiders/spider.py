@@ -27,7 +27,6 @@ class Spider(scrapy.Spider):
         dic = {}
 
         url = post.request.url.split('/')[-1]
-        # dic['#'] = url
 
         title = post.css('.entry-title::text').extract()
         dic['title'] = title[0]
@@ -38,20 +37,14 @@ class Spider(scrapy.Spider):
                 return
 
         content = post.xpath('//*[@id="post-{}"]/div[1]/p//text()'.format(url)).extract()
-        # content = post.xpath('//*[@id="post-{}"]/div[1]/p//text()'.format(url)).re('(\w+)')
         if not content:
             content = post.xpath('//*[@id="post-{}"]//div//text()'.format(url)).extract()
-            # content = post.xpath('//*[@id="post-{}"]//div//text()'.format(url)).re('(\w+)')
 
         content = " ".join(content)
         dic['content'] = self.PreProcess(content)
 
-        # print(post)
-        # print(title)
-        # print(content)
-
         yield dic
-    
+
     def PreProcess(self, text):
       text = re.sub(pattern='Posted on [0-9]{4} [0-9]{2} [0-9]{2} .+ Posted in \S+ \s?', repl='', string=text)
       _filter = re.compile('[ㄱ-ㅣ]+')
@@ -61,4 +54,3 @@ class Spider(scrapy.Spider):
       _filter = re.compile('[\n]+')
       text = _filter.sub("", text)
       return text
-
