@@ -1,4 +1,4 @@
-# AI x Bookathon
+# [AI x Bookathon: 인공지능과 함께 글쓰기]
 #### 팀 ELC39 ([정민정](https://github.com/jeina7), [김형준](https://github.com/khj68), [김승태](https://github.com/kim-seungtae))
 
 
