@@ -1,7 +1,7 @@
 # AI x Bookathon
 #### ELC39팀 ([정민정](https://github.com/jeina7), [김형준](https://github.com/khj68), [김승태](https://github.com/kim-seungtae))
 
-<a href="https://jeinalog.tistory.com/25"><img src="./ai_bookathon.png" width="600"></a>
+<a href="https://jeinalog.tistory.com/25"><img src="./ai_bookathon.png" width="600"  style="display: block; margin: 0 auto;"></a>
 
 
 
