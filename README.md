@@ -1,8 +1,16 @@
 # AI x Bookathon
 #### ELC39팀 ([정민정](https://github.com/jeina7), [김형준](https://github.com/khj68), [김승태](https://github.com/kim-seungtae))
 
-<a href="https://jeinalog.tistory.com/25"><img src="./ai_bookathon.png" width="600"  style="display: block; margin: 0 auto;"></a>
 
+
+　   
+
+
+
+<a href="https://jeinalog.tistory.com/25"><img src="./ai_bookathon.png" width="500" style="display: block; margin: 0 auto;"></a>
+
+
+　   
 
 
 성균관대학교와 인공지능을 개발하는 기업 마인즈랩이 함께 협약을 맺고 2019년 11월 21-22일 주최한 [AI x Bookathon] 행사에서 ELC39팀이 사용한 소스코드 레포입니다.
